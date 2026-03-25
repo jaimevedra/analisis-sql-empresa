@@ -2,10 +2,11 @@
 
 Proyecto de práctica SQL desarrollado desde cero en MySQL sobre Linux.
 
-## Contenido
-- Creación de base de datos con tablas de empleados y departamentos
-- Consultas de análisis: JOINs, subconsultas, GROUP BY, HAVING, 
-  window functions y CASE WHEN
+## Estructura del proyecto
+- `setup.sql` — creación de tablas e inserción de datos
+- `basico/` — SELECT, WHERE, ORDER BY, CONCAT, TIMESTAMPDIFF
+- `intermedio/` — INNER JOIN, LEFT JOIN, GROUP BY, HAVING, CASE WHEN, subconsultas
+- `avanzado/` — subconsultas en JOIN, window functions con RANK
 
 ## Herramientas
 - MySQL
@@ -13,4 +14,4 @@ Proyecto de práctica SQL desarrollado desde cero en MySQL sobre Linux.
 - Visual Studio Code
 
 ## Autor
-Jaime Orlando Saavedra Rubio  — estudiante de Análisis y Desarrollo de Software, SENA
+Jaime Saavedra — estudiante de Análisis y Desarrollo de Software, SENA
