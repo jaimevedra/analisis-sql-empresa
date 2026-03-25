@@ -33,3 +33,12 @@ SELECT e.nombre_1, e.apellido_1, e.salario, d.nombre_departamento,
 RANK() OVER (PARTITION BY e.id_departamentos ORDER BY e.salario DESC) AS posicion 
 FROM empleados e 
 INNER JOIN departamentos d ON e.id_departamentos = d.id_departamento;
+
+-- Consulta 4: Top 2 empleados mejor pagados por departamento
+SELECT * FROM (
+    SELECT e.nombre_1, e.apellido_1, d.nombre_departamento, e.salario,
+    RANK() OVER (PARTITION BY e.id_departamentos ORDER BY e.salario DESC) AS posicion
+    FROM empleados e
+    INNER JOIN departamentos d ON e.id_departamentos = d.id_departamento
+) ranking
+WHERE posicion <= 2;
