@@ -1,2 +1,20 @@
 -- Consultas basicas sql --- 
   
+-- =============================================
+-- Nivel básico
+-- Temas: SELECT, WHERE, ORDER BY, CONCAT, 
+--        TIMESTAMPDIFF
+-- =============================================
+
+-- Consulta 1: Empleados que ganan más de 3 millones
+SELECT nombre_1, apellido_1, salario 
+FROM empleados 
+WHERE salario > 3000000 
+ORDER BY salario DESC;
+
+-- Consulta 2: Nombre completo, ciudad y edad
+SELECT CONCAT(apellido_1, ', ', nombre_1) AS nombre_completo, 
+ciudad, 
+TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) AS edad 
+FROM empleados 
+ORDER BY edad DESC;
