@@ -1,16 +1,50 @@
-# Análisis SQL - Base de datos empresa
+CREATE DATABASE empresa_1;
+USE empresa_1;
 
-Proyecto de práctica SQL desarrollado desde cero en MySQL sobre Linux.
+-- Tabla departamentos
+CREATE TABLE departamentos (
+    id_departamento INT NOT NULL PRIMARY KEY,
+    nombre_departamento VARCHAR(50)
+);
 
-## Contenido
-- Creación de base de datos con tablas de empleados y departamentos
-- Consultas de análisis: JOINs, subconsultas, GROUP BY, HAVING, 
-  window functions y CASE WHEN
+-- Tabla empleados
+CREATE TABLE empleados (
+    id_empleado INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre_1 VARCHAR(20) NOT NULL,
+    nombre_2 VARCHAR(20),
+    apellido_1 VARCHAR(20) NOT NULL,
+    apellido_2 VARCHAR(20),
+    fecha_nac DATE NOT NULL,
+    ciudad VARCHAR(20),
+    salario DECIMAL(10,2) NOT NULL,
+    telefono_celular VARCHAR(50) NOT NULL,
+    titulo_academico VARCHAR(50),
+    correo_electronico VARCHAR(100) NOT NULL,
+    id_departamentos INT,
+    FOREIGN KEY (id_departamentos) REFERENCES departamentos(id_departamento)
+);
 
-## Herramientas
-- MySQL
-- Linux terminal
-- Visual Studio Code
+-- PARTE 2: Inserción de datos
+INSERT INTO departamentos VALUES
+(1, 'Sistemas'),
+(2, 'Recursos Humanos'),
+(3, 'Finanzas'),
+(4, 'Ventas'),
+(5, 'Marketing');
 
-## Autor
-Jaime Orlando Saavedra Rubio — estudiante de Análisis y Desarrollo de Software, SENA
+INSERT INTO empleados VALUES
+(1,'Jaime','Orlando','Pardo','Rubio','1998-09-18','Bucaramanga',3000000,'3057631199','Bachiller Tecnico','jaimevedra@gmail.com',1),
+(2,'Maria','Adriana','Muñoz','Sicard','1991-09-11','Bogota',6000000,'312344523','Maestria','adriarte@gmail.com',2),
+(3,'Karen','Andrea','Saavedra','Rubio','2001-04-08','Bucaramanga',2500000,'312324522',NULL,'karen@gmail.com',5),
+(4,'Sandra','Yisel','Saavedra','Gimenez','2011-09-11','Aguachica',2000000,'213122432','Bachiller','vayisel@gmail.com',5),
+(6,'fabian','Andres','Sandobal','lopez','1994-09-12','Medellin',5000000,'062547383','Tecnologo','fabian@gmail.com',1),
+(7,'Carlos','Andres','Gomez','Lopez','1995-03-14','Bogota',3200000,'3102345678','Tecnologo','carlos.gomez@gmail.com',4),
+(8,'Maria','Fernanda','Rodriguez','Castro','1992-07-22','Medellin',4100000,'3115678901','Profesional','maria.rodriguez@gmail.com',3),
+(9,'Jorge','Luis','Ramirez','Torres','1989-11-05','Cali',3800000,'3127894561','Tecnico','jorge.ramirez@gmail.com',4),
+(10,'Laura','Daniela','Martinez','Rojas','1998-01-30','Cartagena',2900000,'3134567890','Profesional','laura.martinez@gmail.com',5),
+(11,'Andres','Felipe','Morales','Vega','1994-05-18','Barranquilla',4500000,'3147891234','Especializacion','andres.morales@gmail.com',4),
+(12,'Paula','Andrea','Hernandez','Diaz','1997-09-09','Bogota',3100000,'3156789123','Tecnologo','paula.hernandez@gmail.com',2),
+(13,'Sebastian','David','Ortega','Pardo','1993-12-12','Bucaramanga',3600000,'3163456789','Profesional','sebastian.ortega@gmail.com',1),
+(14,'Natalia','Alejandra','Suarez','Mendoza','1996-06-27','Pereira',3400000,'3172348901','Tecnico','natalia.suarez@gmail.com',5),
+(15,'Felipe','Santiago','Castillo','Navas','1991-04-16','Manizales',3900000,'3189012345','Maestria','felipe.castillo@gmail.com',3),
+(16,'Camila','Isabel','Gutierrez','Salazar','1999-08-03','Santa Marta',2800000,'3194561230','Profesional','camila.gutierrez@gmail.com',5);
