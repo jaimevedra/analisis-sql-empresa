@@ -1,1 +1,35 @@
 --- Consultas avanzadas sql ---
+-- =============================================
+-- Nivel avanzado
+-- Temas: subconsultas en JOIN, window functions
+-- =============================================
+
+-- Consulta 1: Empleado mejor pagado por departamento
+SELECT d.nombre_departamento, e.nombre_1, e.salario 
+FROM empleados e 
+INNER JOIN departamentos d ON e.id_departamentos = d.id_departamento 
+JOIN (
+    SELECT id_departamentos, MAX(salario) AS max_salario 
+    FROM empleados 
+    GROUP BY id_departamentos
+) m ON e.id_departamentos = m.id_departamentos AND e.salario = m.max_salario 
+ORDER BY e.salario DESC;
+
+-- Consulta 2: Candidatos a revisión salarial
+SELECT e.nombre_1, e.apellido_1, d.nombre_departamento, e.salario, 
+ROUND(s.salario_p_total) AS salario_promedio 
+FROM empleados e 
+INNER JOIN departamentos d ON e.id_departamentos = d.id_departamento 
+JOIN (
+    SELECT id_departamentos, AVG(salario) AS salario_p_total 
+    FROM empleados 
+    GROUP BY id_departamentos
+) s ON e.id_departamentos = s.id_departamentos 
+WHERE e.salario < s.salario_p_total 
+ORDER BY e.salario DESC;
+
+-- Consulta 3: Ranking de empleados por salario dentro de su departamento
+SELECT e.nombre_1, e.apellido_1, e.salario, d.nombre_departamento,
+RANK() OVER (PARTITION BY e.id_departamentos ORDER BY e.salario DESC) AS posicion 
+FROM empleados e 
+INNER JOIN departamentos d ON e.id_departamentos = d.id_departamento;
