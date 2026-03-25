@@ -1,1 +1,52 @@
 --- Consultas avanzadas sql ---
+-- =============================================
+-- Nivel intermedio
+-- Temas: INNER JOIN, LEFT JOIN, GROUP BY, 
+--        HAVING, CASE WHEN, subconsultas
+-- =============================================
+
+-- Consulta 1: Empleados con departamento que ganan más de 3 millones
+SELECT e.nombre_1, e.apellido_1, e.salario, d.nombre_departamento 
+FROM empleados e 
+INNER JOIN departamentos d ON e.id_departamentos = d.id_departamento 
+WHERE e.salario > 3000000 
+ORDER BY e.salario DESC;
+
+-- Consulta 2: Total empleados y salario promedio por departamento
+SELECT d.nombre_departamento, COUNT(e.id_empleado) AS total_empleados, 
+ROUND(AVG(e.salario)) AS salario_promedio 
+FROM empleados e 
+INNER JOIN departamentos d ON e.id_departamentos = d.id_departamento 
+GROUP BY d.nombre_departamento 
+ORDER BY salario_promedio DESC;
+
+-- Consulta 3: Departamentos con promedio mayor a 3.5 millones (HAVING)
+SELECT d.nombre_departamento, COUNT(e.id_empleado) AS total_empleados, 
+ROUND(AVG(e.salario)) AS salario_promedio 
+FROM empleados e 
+INNER JOIN departamentos d ON e.id_departamentos = d.id_departamento 
+GROUP BY d.nombre_departamento 
+HAVING salario_promedio > 3500000 
+ORDER BY salario_promedio DESC;
+
+-- Consulta 4: Clasificación de ciudades por nivel salarial (CASE WHEN)
+SELECT ciudad, COUNT(*) AS total_empleados, 
+ROUND(AVG(salario)) AS salario_promedio,
+CASE WHEN AVG(salario) > 3500000 THEN 'Alto' ELSE 'Medio' END AS nivel
+FROM empleados 
+GROUP BY ciudad 
+ORDER BY salario_promedio DESC;
+
+-- Consulta 5: Empleados que ganan más que el promedio general
+SELECT e.nombre_1, e.apellido_1, e.salario, d.nombre_departamento 
+FROM empleados e 
+INNER JOIN departamentos d ON e.id_departamentos = d.id_departamento 
+WHERE e.salario > (SELECT AVG(salario) FROM empleados) 
+ORDER BY e.salario DESC;
+
+-- Consulta 6: Total empleados por departamento (LEFT JOIN)
+SELECT d.nombre_departamento, COUNT(e.id_empleado) AS cantidad_empleados 
+FROM departamentos d 
+LEFT JOIN empleados e ON d.id_departamento = e.id_departamentos 
+GROUP BY d.nombre_departamento 
+ORDER BY cantidad_empleados DESC;
